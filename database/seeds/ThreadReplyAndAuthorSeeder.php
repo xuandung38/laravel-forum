@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class ThreadsRepliesAndAuthors extends Seeder
+class ThreadReplyAndAuthorSeeder extends Seeder
 {
     /**
      * Run the database seeds.
