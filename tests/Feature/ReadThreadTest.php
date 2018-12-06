@@ -6,6 +6,7 @@ use Tests\TestCase;
 
 use App\Reply;
 use App\Thread;
+use App\Category;
 
 class ReadThreadTest extends TestCase
 {
@@ -46,5 +47,17 @@ class ReadThreadTest extends TestCase
             ->get($thread->path())
             ->assertStatus(200)
             ->assertSee($reply->body);
+    }
+
+    public function a_user_can_view_threads_belonging_to_a_category()
+    {
+        $category = create(Category::class);
+        $threadInCategory = create(Thread::class, ['category_id' => $category->id]);
+        $threadNotInCategory = create(Thread::class);
+
+        $this
+            ->get('/threads/' . $category->slug)
+            ->assertSee($threadInCategory->title)
+            ->assertNotSee($threadNotInCategory->title);
     }
 }

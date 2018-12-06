@@ -11,8 +11,6 @@ use App\Category;
 
 class ThreadTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function setUp()
     {
         parent::setUp();

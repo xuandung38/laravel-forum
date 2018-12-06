@@ -9,8 +9,6 @@ use App\Reply;
 
 class ReplyTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function test_that_a_reply_has_an_owner()
     {
         $reply = factory(Reply::class)->create();
