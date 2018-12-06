@@ -15,8 +15,13 @@
     Threads
  */
 
-Route::resource('threads', 'ThreadController');
-Route::post('/threads/{thread}/replies', 'ReplyController@store');
+// Route::resource('threads', 'ThreadController')->except(['show', 'store']);
+
+Route::get('threads', 'ThreadController@index');
+Route::get('threads/create', 'ThreadController@create');
+Route::get('threads/{category}/{thread}', 'ThreadController@show');
+Route::post('threads', 'ThreadController@store');
+Route::post('threads/{thread}/replies', 'ReplyController@store');
 
 /*
     Authentication
