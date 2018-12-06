@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Thread;
+use App\Category;
 use Illuminate\Http\Request;
 
 class ThreadController extends Controller
@@ -17,9 +18,13 @@ class ThreadController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Category $category)
     {
-        $threads = Thread::latest()->get();
+        if ($category->exists) {
+            $threads = $category->threads()->latest()->get();
+        } else {
+            $threads = Thread::latest()->get();
+        }
 
         return view('threads.index', [
             'threads' => $threads
