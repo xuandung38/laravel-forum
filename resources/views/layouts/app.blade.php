@@ -42,6 +42,18 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/threads/create">{{ __('Create Thread') }}</a>
                         </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Categories
+                            </a>
+                            
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            @foreach (App\Category::all() as $category)
+                                <a class="dropdown-item" href="/threads/{{ $category->slug }}">{{ $category->name }}</a>
+                            @endforeach
+                            </div>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
