@@ -14,37 +14,26 @@ class CreateThreadTest extends TestCase
 {
     public function test_that_a_guest_cannot_create_a_new_thread()
     {
-        $this->withoutExceptionHandling();
-        $this->expectException(AuthenticationException::class);
+        $this
+            ->post('/threads')
+            ->assertRedirect('/login');
 
-        $thread = make(Thread::class);
-
-        $this->post('/threads', $thread->toArray());
-
-        // $this->get($thread->path())
-        //     ->assertSee($thread->title)
-        //     ->assertSee($thread->body);
+        $this
+            ->get('/threads/create')
+            ->assertRedirect('/login');
     }
 
-    public function test_that_an_authenticated_user_can_create_a_new_thread()
+    public function test_that_a_user_can_create_a_new_thread()
     {
-        $this->signIn();
-
         $thread = make(Thread::class);
 
-        $this->post('/threads', $thread->toArray());
+        $this
+            ->signIn()
+            ->post('/threads', $thread->toArray());
 
-        $this->get($thread->path())
+        $this
+            ->get($thread->path())
             ->assertSee($thread->title)
             ->assertSee($thread->body);
-    }
-
-    public function test_that_a_guest_cannot_see_the_create_thread_page()
-    {
-        $this->withoutExceptionHandling();
-        $this->expectException(AuthenticationException::class);
-
-        $this->get('/threads/create')
-            ->assertRedirect('/login');
     }
 }

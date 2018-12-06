@@ -20,7 +20,8 @@ class ReadThreadTest extends TestCase
     {
         $thread = create(Thread::class);
 
-        $response = $this->get('/threads')
+        $response = $this
+            ->get('/threads')
             ->assertStatus(200)
             ->assertSee($thread->title);
     }
@@ -29,7 +30,8 @@ class ReadThreadTest extends TestCase
     {
         $thread = create(Thread::class);
 
-        $response = $this->get('/threads/' . $thread->id)
+        $response = $this
+            ->get('/threads/' . $thread->id)
             ->assertStatus(200)
             ->assertSee($thread->title)
             ->assertSee($thread->body);
@@ -40,7 +42,8 @@ class ReadThreadTest extends TestCase
         $thread = create(Thread::class);
         $reply = create(Reply::class, ['parent_id' => $thread->id]);
 
-        $this->get('/threads/' . $thread->id)
+        $this
+            ->get('/threads/' . $thread->id)
             ->assertStatus(200)
             ->assertSee($reply->body);
     }
