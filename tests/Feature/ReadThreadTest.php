@@ -21,7 +21,7 @@ class ReadThreadTest extends TestCase
 
     public function test_that_a_user_can_view_all_threads()
     {
-        $thread = factory(Thread::class)->create();
+        $thread = create(Thread::class);
 
         $response = $this->get('/threads')
             ->assertStatus(200)
@@ -30,7 +30,7 @@ class ReadThreadTest extends TestCase
 
     public function test_that_a_user_can_view_a_specific_thread()
     {
-        $thread = factory(Thread::class)->create();
+        $thread = create(Thread::class);
 
         $response = $this->get('/threads/' . $thread->id)
             ->assertStatus(200)
@@ -40,8 +40,8 @@ class ReadThreadTest extends TestCase
 
     public function test_that_a_user_can_see_the_replies_to_a_thread()
     {
-        $thread = factory(Thread::class)->create();
-        $reply = factory(Reply::class)->create(['parent_id' => $thread->id]);
+        $thread = create(Thread::class);
+        $reply = create(Reply::class, ['parent_id' => $thread->id]);
 
         $this->get('/threads/' . $thread->id)
             ->assertStatus(200)

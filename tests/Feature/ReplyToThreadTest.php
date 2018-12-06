@@ -21,19 +21,19 @@ class ReplyToThreadTest extends TestCase
     {
         $this->expectException(AuthenticationException::class);
 
-        $thread = factory(Thread::class)->create();
-        $reply = factory(Reply::class)->make();
+        $thread = create(Thread::class);
+        $reply = make(Reply::class);
 
         $this->post('/threads/1/replies', $reply->toArray());
     }
 
     public function test_that_an_authenticated_user_may_reply_to_a_forum_thread()
     {
-        $user = factory(User::class)->create();
+        $user = create(User::class);
         $this->be($user);
 
-        $thread = factory(Thread::class)->create();
-        $reply = factory(Reply::class)->make();
+        $thread = create(Thread::class);
+        $reply = make(Reply::class);
 
         $this->post('/threads/1/replies', $reply->toArray())
             ->assertStatus(302);

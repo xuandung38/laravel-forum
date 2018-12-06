@@ -21,7 +21,7 @@ class CreateThreadTest extends TestCase
     public function test_that_an_unauthenticated_user_cannot_create_a_new_thread()
     {
         $this->expectException(AuthenticationException::class);
-        $thread = factory(Thread::class)->make();
+        $thread = make(Thread::class);
 
         $this->post('/threads', $thread->toArray());
 
@@ -32,9 +32,9 @@ class CreateThreadTest extends TestCase
 
     public function test_that_an_authenticated_user_can_create_a_new_thread()
     {
-        $this->actingAs(factory(User::class)->create());
+        $this->actingAs(create(User::class));
 
-        $thread = factory(Thread::class)->make();
+        $thread = make(Thread::class);
 
         $this->post('/threads', $thread->toArray());
 
