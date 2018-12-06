@@ -1,8 +1,5 @@
 <?php
 
-use App\Http\Controllers\ThreadController;
-use App\Http\Controllers\ReplyController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,10 +15,8 @@ use App\Http\Controllers\ReplyController;
     Threads
  */
 
-Route::get('/threads', [ThreadController::class, 'index']);
-Route::post('/threads', [ThreadController::class, 'store']);
-Route::get('/threads/{thread}', [ThreadController::class, 'show']);
-Route::post('/threads/{thread}/replies', [ReplyController::class, 'store']);
+Route::resource('threads', 'ThreadController');
+Route::post('/threads/{thread}/replies', 'ReplyController@store');
 
 /*
     Authentication
