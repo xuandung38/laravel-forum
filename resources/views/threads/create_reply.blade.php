@@ -1,4 +1,4 @@
-<div class="card bg-dark border-secondary text-white mb-4">
+<div class="card mb-4">
     <div class="card-body">
         <form method="POST" action="/threads/{{ $thread->id }}/replies">
              @csrf
