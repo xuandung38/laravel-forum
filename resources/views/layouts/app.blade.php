@@ -38,6 +38,10 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/threads">{{ __('All Threads') }}</a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/threads/create">{{ __('Create Thread') }}</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
