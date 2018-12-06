@@ -20,11 +20,28 @@ class Thread extends Model
 
     public function path()
     {
-        return '/threads/' . $this->id;
+        return $this->pathWithCategory();
+    }
+
+    public function pathWithCategory()
+    {
+        return "/threads/{$this->category->slug}/{$this->id}";
+    }
+
+    public function pathWithoutCategory($withReplies = false)
+    {
+        $path = "/threads/{$this->id}";
+
+        return $withReplies ? $path . '/replies' : $path;
     }
 
     public function addReply($reply)
     {
         $this->replies()->create($reply);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }
