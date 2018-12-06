@@ -3,15 +3,12 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 use App\Reply;
 use App\Thread;
 
 class ReadThreadTest extends TestCase
 {
-    use RefreshDatabase;
-
     // public function setUp()
     // {
     //     parent::setUp();

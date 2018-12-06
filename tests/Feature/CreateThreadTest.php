@@ -3,9 +3,6 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 use App\User;
 use App\Thread;
@@ -15,9 +12,6 @@ use Illuminate\Auth\AuthenticationException;
 
 class CreateThreadTest extends TestCase
 {
-    use RefreshDatabase;
-    use DatabaseMigrations;
-
     public function test_that_an_unauthenticated_user_cannot_create_a_new_thread()
     {
         $this->expectException(AuthenticationException::class);
@@ -32,7 +26,7 @@ class CreateThreadTest extends TestCase
 
     public function test_that_an_authenticated_user_can_create_a_new_thread()
     {
-        $this->actingAs(create(User::class));
+        $this->signIn();
 
         $thread = make(Thread::class);
 
