@@ -42,12 +42,14 @@ class ThreadsTest extends TestCase
     public function test_that_a_user_can_see_the_replies_to_a_thread()
     {
         $thread = factory(Thread::class)->create();
-
-
-
         $reply = factory(Reply::class)->create(['parent_id' => $thread->id]);
 
+        $response = $this->get('/threads/' . $thread->id);
+
+        \Log::debug('The replies:');
         \Log::debug($thread->replies);
+        \Log::debug('The reply:');
+        \Log::debug($reply);
 
         $response->assertStatus(200);
         $response->assertSee($reply->body);
