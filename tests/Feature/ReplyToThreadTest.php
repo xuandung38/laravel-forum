@@ -34,7 +34,20 @@ class ReplyToThreadTest extends TestCase
             ->post('/threads/1/replies', $reply->toArray())
             ->assertStatus(302);
 
-        $this->get('/threads/1')
+        $this->get('/threads/some-category/1')
             ->assertSee($reply->body);
+    }
+
+    public function test_that_a_reply_requires_a_body()
+    {
+        $this
+            ->signIn();
+
+        $thread = create(Thread::class);
+        $reply = make(Reply::class, ['body' => null]);
+
+        $this
+            ->post($thread->pathWithoutCategory(true), $reply->toArray())
+            ->assertSessionHasErrors('body');
     }
 }

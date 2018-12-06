@@ -31,7 +31,7 @@ class ReadThreadTest extends TestCase
         $thread = create(Thread::class);
 
         $response = $this
-            ->get('/threads/' . $thread->id)
+            ->get($thread->path())
             ->assertStatus(200)
             ->assertSee($thread->title)
             ->assertSee($thread->body);
@@ -43,7 +43,7 @@ class ReadThreadTest extends TestCase
         $reply = create(Reply::class, ['parent_id' => $thread->id]);
 
         $this
-            ->get('/threads/' . $thread->id)
+            ->get($thread->path())
             ->assertStatus(200)
             ->assertSee($reply->body);
     }
