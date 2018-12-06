@@ -14,6 +14,7 @@ class ReplyToThreadTest extends TestCase
 {
     public function test_that_an_unauthenticated_user_cannot_reply_to_a_forum_thread()
     {
+        $this->withoutExceptionHandling();
         $this->expectException(AuthenticationException::class);
 
         $thread = create(Thread::class);
