@@ -5,8 +5,8 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card bg-primary border-dark text-white mb-5">
-                <div class="card-header">
-                    Posted by ...
+                <div class="card-header mt-2">
+                    <h4>{{ $thread->title }}</h4>
                 </div>
 
                 <div class="card-body">
