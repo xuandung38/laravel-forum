@@ -1,6 +1,6 @@
 <div class="card mb-4">
     <div class="card-body">
-        <form method="POST" action="/threads/{{ $thread->id }}/replies">
+        <form method="POST" action="/{{ $thread->pathWithoutCategory(true) }}">
              @csrf
 
             <div class="form-group">
