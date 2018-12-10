@@ -27,4 +27,14 @@ class FavouriteController extends Controller
 
         return back();
     }
+
+    public function removeReply(Reply $reply)
+    {
+
+    }
+
+    public function removeThread(Thread $thread)
+    {
+
+    }
 }
