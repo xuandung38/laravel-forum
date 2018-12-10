@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Thread;
 use App\Category;
-
+use App\Filters\ThreadFilter;
 use Illuminate\Http\Request;
+
 
 class ThreadController extends Controller
 {
@@ -16,24 +17,11 @@ class ThreadController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Show threads (optionally filtered).
      */
-    public function index(Category $category)
+    public function index(Category $category, ThreadFilter $filter)
     {
-        if ($category->exists) {
-            $threads = $category->threads()->latest();
-        } else {
-            $threads = Thread::latest();
-        }
-
-        if (($author = request('author'))) {
-            $user = User::where('name', $author)->firstOrFail();
-            $threads->where('author_id', $user->id);
-        }
-        
-        $threads = $threads->get();
+        $threads = $this->getThreads($category, $filter);
 
         return view('threads.index', [
             'threads' => $threads
@@ -41,9 +29,7 @@ class ThreadController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Show the form for creating a new thread.
      */
     public function create()
     {
@@ -52,10 +38,7 @@ class ThreadController extends Controller
 
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * Store a newly created thread.
      */
     public function store(Request $request)
     {
@@ -76,10 +59,7 @@ class ThreadController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Thread  $thread
-     * @return \Illuminate\Http\Response
+     * Display a specific thread.
      */
     public function show($category, Thread $thread)
     {
@@ -87,10 +67,7 @@ class ThreadController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Thread  $thread
-     * @return \Illuminate\Http\Response
+     * Show the form for editing a thread.
      */
     public function edit(Thread $thread)
     {
@@ -98,11 +75,7 @@ class ThreadController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Thread  $thread
-     * @return \Illuminate\Http\Response
+     * Update an already stored thread.
      */
     public function update(Request $request, Thread $thread)
     {
@@ -110,13 +83,24 @@ class ThreadController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Thread  $thread
-     * @return \Illuminate\Http\Response
+     * Remove an already stored thread.
      */
     public function destroy(Thread $thread)
     {
         //
+    }
+
+    /**
+     * Return all threads (optionally filtered).
+     */
+    public function getThreads($category, $filter)
+    {
+        $threads = Thread::latest()->filter($filter);
+
+        if ($category->exists) {
+            $threads = $threads->where('category_id', $category->id);
+        }
+
+        return $threads->get();
     }
 }
