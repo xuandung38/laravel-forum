@@ -16,8 +16,6 @@ class FavouriteTest extends TestCase
 
         $this->post('/favourites/thread/' . $thread->id);
 
-        // dd($thread->favourites);
-
         $this->assertCount(1, $thread->favourites);
     }
 
@@ -38,7 +36,7 @@ class FavouriteTest extends TestCase
 
         $reply = create(Reply::class);
 
-        // NOTE: Could throw because of constraint errors with certain DB drivers.
+        // NOTE: Could throw because of constraint errors.
         try {
             $this->post('favourites/reply/' . $reply->id);
             $this->post('favourites/reply/' . $reply->id);
