@@ -23,6 +23,8 @@ Route::get('threads/{category}', 'ThreadController@index');
 Route::get('threads/{category}/{thread}', 'ThreadController@show');
 Route::post('threads', 'ThreadController@store');
 Route::post('threads/{thread}/replies', 'ReplyController@store');
+Route::post('favourites/reply/{reply}', 'FavouriteController@storeReply');
+Route::post('favourites/thread/{thread}', 'FavouriteController@storeThread');
 
 /*
     Authentication
