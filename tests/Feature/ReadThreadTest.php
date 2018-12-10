@@ -49,7 +49,7 @@ class ReadThreadTest extends TestCase
             ->assertSee($reply->body);
     }
 
-    public function a_user_can_view_filtered_threads_by_category()
+    public function test_that_a_user_can_view_filtered_threads_by_category()
     {
         $category = create(Category::class);
         $threadInCategory = create(Thread::class, ['category_id' => $category->id]);
@@ -58,7 +58,7 @@ class ReadThreadTest extends TestCase
         $this
             ->get('/threads/' . $category->slug)
             ->assertSee($threadInCategory->title)
-            ->assertNotSee($threadNotInCategory->title);
+            ->assertDontSee($threadNotInCategory->title);
     }
 
     public function a_user_can_view_filtered_threads_by_author()
@@ -71,6 +71,25 @@ class ReadThreadTest extends TestCase
         $this
             ->get('/threads?author=Jane')
             ->assertSee($threadByUser->title)
-            ->assertNotSee($threadNotByUser->title);
+            ->assertDontSee($threadNotByUser->title);
+    }
+
+    public function test_that_a_user_can_view_filtered_threads_by_popularity()
+    {
+        $threadWithNoReplies = create(Thread::class);
+
+        $threadWithTwoReplies = create(Thread::class);
+        create(Reply::class, ['parent_id' => $threadWithTwoReplies->id], 2);
+
+        $threadWithFiveReplies = create(Thread::class);
+        create(Reply::class, ['parent_id' => $threadWithFiveReplies->id], 5);
+
+        $response = $this
+            ->get('/threads?popular=1')
+            ->assertSeeInOrder([
+                $threadWithFiveReplies->title,
+                $threadWithTwoReplies->title,
+                $threadWithNoReplies->title
+            ]);
     }
 }

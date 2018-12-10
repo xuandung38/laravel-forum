@@ -45,6 +45,7 @@
                                 @auth
                                     <a class="dropdown-item" href="/threads?author={{ auth()->user()->name }}">My Threads</a>
                                 @endauth
+                                    <a class="dropdown-item" href="/threads?popular=1">Popular (All Time)</a>
                                 </div>
                             </li>
 

@@ -98,7 +98,7 @@ class ThreadController extends Controller
      */
     public function getThreads($category, $filter)
     {
-        $threads = Thread::latest()->filter($filter);
+        $threads = Thread::filter($filter)->latest();
 
         if ($category->exists) {
             $threads = $threads->where('category_id', $category->id);
