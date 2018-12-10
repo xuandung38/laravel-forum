@@ -13,7 +13,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        if (app()->environment() === 'testing') {
+            \DB::statement('PRAGMA foreign_keys=on');
+        }
     }
 
     /**
