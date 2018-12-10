@@ -1,4 +1,4 @@
-            <div class="card bg-dark border-secondary text-white mb-4">
+            <div class="card bg-dark border-secondary text-white mb-3">
                 {{-- <div class="card-header">{{ $reply->title }}</div> --}}
 
                 <div class="card-body">
