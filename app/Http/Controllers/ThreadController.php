@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Thread;
+use App\Reply;
 use App\Category;
 use App\Filters\ThreadFilter;
 use Illuminate\Http\Request;
@@ -24,7 +25,8 @@ class ThreadController extends Controller
         $threads = $this->getThreads($category, $filter);
 
         return view('threads.index', [
-            'threads' => $threads
+            'threads' => $threads,
+            'deleted' => session()->has('deleted')
         ]);
     }
 
@@ -82,15 +84,32 @@ class ThreadController extends Controller
      */
     public function update(Request $request, Thread $thread)
     {
-        //
+        $this->authorize('update', $thread);
     }
 
     /**
      * Remove an already stored thread.
      */
-    public function destroy(Thread $thread)
+    public function destroy($category, Request $request, Thread $thread)
     {
-        //
+        $this->authorize('update', $thread);
+
+        // NOTE: We can't do $thread->replies()->delete() because replies() uses with/withCount.
+        $replies = Reply::where('parent_id', $thread->id)->get();
+        foreach ($replies as $reply) {
+            $reply->favourites()->delete();
+            $reply->delete();
+        }
+        $thread->favourites()->delete();
+        $thread->delete();
+
+        if ($request->wantsJson()) {
+            return response(['deleted' => true], 204);
+        } else {
+            session()->flash('deleted', true);
+
+            return redirect('/threads');
+        }
     }
 
     /**

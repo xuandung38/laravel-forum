@@ -16,7 +16,7 @@ class CreateFavouritesTable extends Migration
         Schema::create('favourites', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id')->references('id')->on('users');
-            $table->unsignedInteger('favourited_id'); // TODO: Find out how we'd even do a references here?
+            $table->unsignedInteger('favourited_id'); // TODO: Find out how to reference polymorphic tables? 
             $table->string('favourited_type', 50);
             $table->unique(['user_id', 'favourited_id', 'favourited_type']);
             $table->timestamps();
