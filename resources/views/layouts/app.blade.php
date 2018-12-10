@@ -39,10 +39,6 @@
                             <a class="nav-link" href="/threads">{{ __('All Threads') }}</a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="/threads/create">{{ __('Create Thread') }}</a>
-                        </li>
-
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Categories
@@ -53,6 +49,10 @@
                                 <a class="dropdown-item" href="/threads/{{ $category->slug }}">{{ $category->name }}</a>
                             @endforeach
                             </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/threads/create">{{ __('Create Thread') }}</a>
                         </li>
                     </ul>
 
@@ -92,7 +92,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="py-3">
             @yield('content')
         </main>
     </div>
