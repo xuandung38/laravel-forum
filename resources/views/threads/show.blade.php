@@ -6,6 +6,18 @@
         <div class="col-md-8">
             <div class="card bg-primary border-dark text-white mb-3">
                 <div class="card-header mt-2">
+                    <form method="POST" action="/favourites/thread/{{ $thread->id }}">
+                        @csrf
+
+                    @if ($thread->isFavourited())
+                        {{ method_field('DELETE') }}
+                    @endif
+                        
+                        <button class="btn btn-sm float-right {{ $thread->isFavourited() ? 'btn-secondary' : 'btn-tertiary' }}">
+                            {{ $thread->favourites_count >= 1 ? '⭐ ' . $thread->favourites_count : '⭐' }}
+                        </button>
+                    </form>
+
                     <h4>{{ $thread->title }}</h4>
                 </div>
 
@@ -48,7 +60,19 @@
                     <p><strong>Published:</strong> {{ $thread->created_at->diffForHumans() }}</p>
                     <p><strong>Last Updated:</strong> {{ $thread->updated_at->diffForHumans() }}</p>
                     <p><strong>Created By:</strong> {{ $thread->author->name }}</p>
-                    <p class="mb-0"><strong>Reply Count:</strong> {{ $thread->replies_count }}</p>
+                    <p><strong>Reply Count:</strong> {{ $thread->replies_count }}</p>
+
+                @can('update', $thread)
+                    <form action="{{ $thread->path() }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+
+                        <div class="btn-group" role="group">
+                            <a href="{{ $thread->path() }}/edit" class="btn btn-primary">Edit</a>
+                            <button type="submit" class="btn btn-primary">Delete</button>
+                        </div>
+                    </form>
+                @endcan
                 </div>
             </div>
         </div>
