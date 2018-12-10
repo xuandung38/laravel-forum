@@ -3,14 +3,24 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Thread extends Model
 {
     protected $guarded = [];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('replyCount', function (Builder $builder) {
+            $builder->withCount('replies');
+        });
+    }
+
     /*
         Relationships
-    */
+     */
 
     public function replies()
     {
@@ -29,7 +39,7 @@ class Thread extends Model
 
     /*
         Relationship Helpers
-    */
+     */
 
     public function addReply($reply)
     {
@@ -43,7 +53,7 @@ class Thread extends Model
 
     /*
         Form/View Helper Methods
-    */
+     */
 
     public function path()
     {
