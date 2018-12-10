@@ -7,7 +7,11 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Thread extends Model
 {
+    use Favouritable;
+
     protected $guarded = [];
+
+    protected $with = ['author', 'category'];
 
     protected static function boot()
     {
@@ -24,7 +28,9 @@ class Thread extends Model
 
     public function replies()
     {
-        return $this->hasMany(Reply::class, 'parent_id');
+        return $this->hasMany(Reply::class, 'parent_id')
+            ->withCount('favourites')
+            ->with('author');
     }
 
     public function author()
@@ -35,20 +41,6 @@ class Thread extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
-    }
-
-    public function favourites()
-    {
-        return $this->morphMany(Favourite::class, 'favourited');
-    }
-
-    public function favourite()
-    {
-        $attributes = ['user_id' => auth()->id()];
-
-        if (!$this->favourites()->where($attributes)->exists()) {
-            $this->favourites()->create($attributes);
-        }
     }
 
     /*

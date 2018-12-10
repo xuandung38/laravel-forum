@@ -10,7 +10,7 @@
                     @endif
                         
                         <button class="btn btn-sm float-right {{ $reply->isFavourited() ? 'btn-secondary' : 'btn-primary' }}">
-                            {{ $reply->favourites()->count() >= 1 ? '⭐ ' . $reply->favourites()->count() : '⭐' }}
+                            {{ $reply->favourites_count >= 1 ? '⭐ ' . $reply->favourites_count : '⭐' }}
                         </button>
                     </form>
 
