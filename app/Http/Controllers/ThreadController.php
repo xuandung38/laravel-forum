@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Thread;
 use App\Category;
+
 use Illuminate\Http\Request;
 
 class ThreadController extends Controller
@@ -21,10 +23,17 @@ class ThreadController extends Controller
     public function index(Category $category)
     {
         if ($category->exists) {
-            $threads = $category->threads()->latest()->get();
+            $threads = $category->threads()->latest();
         } else {
-            $threads = Thread::latest()->get();
+            $threads = Thread::latest();
         }
+
+        if (($author = request('author'))) {
+            $user = User::where('name', $author)->firstOrFail();
+            $threads->where('author_id', $user->id);
+        }
+        
+        $threads = $threads->get();
 
         return view('threads.index', [
             'threads' => $threads
