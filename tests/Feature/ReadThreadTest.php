@@ -49,7 +49,7 @@ class ReadThreadTest extends TestCase
             ->assertSee($reply->body);
     }
 
-    public function a_user_can_view_threads_belonging_to_a_category()
+    public function a_user_can_view_filtered_threads_by_category()
     {
         $category = create(Category::class);
         $threadInCategory = create(Thread::class, ['category_id' => $category->id]);
@@ -59,5 +59,18 @@ class ReadThreadTest extends TestCase
             ->get('/threads/' . $category->slug)
             ->assertSee($threadInCategory->title)
             ->assertNotSee($threadNotInCategory->title);
+    }
+
+    public function a_user_can_view_filtered_threads_by_author()
+    {
+        $this->signIn(create(User::class, ['name' => 'Jane']));
+
+        $threadByUser = create(Thread::class, ['author_id' => auth()->id]);
+        $threadNotByUser = create(Thread::class);
+
+        $this
+            ->get('/threads?author=Jane')
+            ->assertSee($threadByUser->title)
+            ->assertNotSee($threadNotByUser->title);
     }
 }
