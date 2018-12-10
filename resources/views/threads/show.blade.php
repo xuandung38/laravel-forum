@@ -17,11 +17,13 @@
                 </div>
             </div>
 
-        @foreach($thread->replies as $reply)
+        @foreach($replies as $reply)
 
             @include('threads.reply')
 
         @endforeach
+
+        {{ $replies->links() }}
 
         @auth
             @include('threads.create_reply')
@@ -35,7 +37,7 @@
         </div>
 
         <div class="col-md-4">
-            <div class="card bg-primary border-dark mb-3">
+            <div class="card bg-dark text-white border-dark mb-3">
                 <div class="card-header mt-2">
                     <h4>Thread Details</h4>
                 </div>
