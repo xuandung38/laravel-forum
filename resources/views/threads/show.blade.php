@@ -10,7 +10,9 @@
                 </div>
 
                 <div class="card-body">
-                    <h5 class="card-title mb-2 text-white">{{ $thread->author->name }} said...</h5>
+                    <h5 class="card-title mb-2 text-white">
+                        <a class="text-dark" href="/profiles/{{ $thread->author->name }}">{{ $thread->author->name }} said...</a>
+                    </h5>
                     <h6 class="card-subtitle mb-2 text-dark">{{ $thread->created_at->diffForHumans() }}</h6>
 
                     {{ $thread->body }}

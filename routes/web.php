@@ -28,6 +28,8 @@ Route::post('favourites/thread/{thread}', 'FavouriteController@storeThread');
 Route::delete('favourites/reply/{reply}', 'FavouriteController@removeReply');
 Route::delete('favourites/thread/{thread}', 'FavouriteController@removeThread');
 
+Route::get('profiles/{user}', 'ProfileController@show');
+
 /*
     Authentication
  */

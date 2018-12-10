@@ -14,7 +14,9 @@
                         </button>
                     </form>
 
-                    <h5 class="card-title mb-2 text-white">{{ $reply->author->name }} said...</h5>
+                    <h5 class="card-title mb-2 text-white">
+                        <a href="/profiles/{{ $reply->author->name }}">{{ $reply->author->name }} said...</a>
+                    </h5>
                     <h6 class="card-subtitle mb-2 text-muted">{{ $reply->created_at->diffForHumans() }}</h6>
 
                     {{ $reply->body }}
