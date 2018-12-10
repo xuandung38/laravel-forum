@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card bg-primary border-dark text-white mb-5">
+            <div class="card bg-primary border-dark text-white mb-3">
                 <div class="card-header mt-2">
                     <h4>{{ $thread->title }}</h4>
                 </div>
@@ -16,11 +16,6 @@
                     {{ $thread->body }}
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div class="row justify-content-center">
-        <div class="col-md-8">
 
         @foreach($thread->replies as $reply)
 
@@ -28,27 +23,32 @@
 
         @endforeach
 
-        </div>
-    </div>
-    
-    @auth
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-
+        @auth
             @include('threads.create_reply')
+        @endif
 
-        </div>
-    </div>
-    @endif
-
-    @guest
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+        @guest
             <div class="alert alert-info text-center" role="alert">
                 Please <a href="{{ route('login') }}">sign in</a> to participate.
             </div>
+        @endif
+        </div>
+
+        <div class="col-md-4">
+            <div class="card bg-primary border-dark mb-3">
+                <div class="card-header mt-2">
+                    <h4>Thread Details</h4>
+                </div>
+
+                <div class="card-body">
+                    <p><strong>Published:</strong> {{ $thread->created_at->diffForHumans() }}</p>
+                    <p><strong>Last Updated:</strong> {{ $thread->updated_at->diffForHumans() }}</p>
+                    <p><strong>Created By:</strong> {{ $thread->author->name }}</p>
+                    <p class="mb-0"><strong>Reply Count:</strong> {{ $thread->replies_count }}</p>
+                </div>
+            </div>
         </div>
     </div>
-    @endif
+
 </div>
 @endsection
