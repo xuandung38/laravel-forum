@@ -1,3 +1,5 @@
+@include('errors.form')
+
 <div class="card mb-4">
     <div class="card-body">
         <form method="POST" action="{{ $thread->pathWithoutCategory(true) }}">
