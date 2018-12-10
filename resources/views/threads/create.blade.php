@@ -20,7 +20,7 @@
                                 <select name="category_id" class="form-control" required>
                                     <option value="">Choose a Category...</option>
 
-                                @foreach (App\Category::all() as $category)
+                                @foreach ($categories as $category)
                                     <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
                                 @endforeach
                                 </select>
@@ -34,7 +34,7 @@
 
                         <div class="form-group">
                             <label for="body">Body</label>
-                            
+
                             <textarea class="form-control" id="body" name="body" rows="3" placeholder="Your reply here." required></textarea>
                         </div>
 

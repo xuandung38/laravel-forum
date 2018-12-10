@@ -40,12 +40,12 @@
                         </li>
 
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" id="categories-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Categories
                             </a>
                             
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            @foreach (App\Category::all() as $category)
+                            <div class="dropdown-menu" aria-labelledby="categories-dropdown">
+                            @foreach ($categories as $category)
                                 <a class="dropdown-item" href="/threads/{{ $category->slug }}">{{ $category->name }}</a>
                             @endforeach
                             </div>
