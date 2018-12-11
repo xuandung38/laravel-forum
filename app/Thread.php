@@ -7,7 +7,12 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Thread extends Model
 {
+    protected static $activities = [
+        'created'
+    ];
+
     use Favouritable;
+    use RecordsActivity;
 
     protected $guarded = [];
 
@@ -20,6 +25,10 @@ class Thread extends Model
         static::addGlobalScope('replyCount', function (Builder $builder) {
             $builder->withCount('replies');
         });
+
+        // static::deleting(function($thread) {
+        //     $thread->replies()->delete();
+        // });
     }
 
     /*
