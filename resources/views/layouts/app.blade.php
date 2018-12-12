@@ -56,7 +56,7 @@
                             
                             <div class="dropdown-menu" aria-labelledby="categories-dropdown">
                             @foreach ($categories as $category)
-                                <a class="dropdown-item" href="/threads/{{ $category->slug }}">{{ $category->name }}</a>
+                                <a class="dropdown-item" href="/threads/{{ $category->slug }}">{{ $category->title }}</a>
                             @endforeach
                             </div>
                         </li>

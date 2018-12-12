@@ -3,10 +3,10 @@
 use Faker\Generator as Faker;
 
 $factory->define(App\Category::class, function (Faker $faker) {
-    $name = $faker->sentence;
+    $title = $faker->sentence;
 
     return [
-        'name' => $name,
-        'slug' => str_slug($name),
+        'title' => $title,
+        'slug' => str_slug($title),
     ];
 });
