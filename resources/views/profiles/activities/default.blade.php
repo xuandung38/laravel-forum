@@ -5,6 +5,8 @@
     </div> --}}
 
     <div class="body">
-        {{ $activity->created_at->diffForHumans() }}, {{ $activity->subject->author->name }} <a href="{{ $activity->subject->path() }}">{{ $activity->action }} a {{ $activity->subject_type }}</a>.
+        {{ $activity->created_at->diffForHumans() }}, {{ $activity->subject->author->name }} 
+        <a href="{{ $activity->subject->path() }}">{{ $activity->action }} a {{ $activity->subject_type }}</a> 
+        in <a href="{{ $activity->subject->parent->path() }}">{{ $activity->subject->parent->title }}</a>
     </div>
 </article>
