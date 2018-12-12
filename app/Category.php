@@ -15,4 +15,9 @@ class Category extends Model
     {
         return $this->hasMany(Thread::class);
     }
+
+    public function path()
+    {
+        return "/threads/{$this->slug}";
+    }
 }

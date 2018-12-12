@@ -8,19 +8,22 @@
                    <strong>Profile:</strong> {{ $profileUser->name }}
                 </div>
 
+            @foreach ($activities as $date => $groupedActivities)
                 <div class="card">
                     <div class="card-header mt-2">
-                        Activity
+                        <h4>Activity for {{ $date }}</h4>
                     </div>
 
                     <div class="card-body">
-                        @foreach ($activities as $activity)
-                            @include("profiles.activities.all")
+                        <!-- IDEA: Allow subjects to optionally override the view if they need to do anything more advanced than the default? -->
+                        @foreach ($groupedActivities as $activity)
+                            @include("profiles.activities.default")
                         @endforeach
 
                         {{-- {{ $threads->links()}} --}}
                     </div>
                 </div>
+            @endforeach
             </div>
         </div>
     </div>

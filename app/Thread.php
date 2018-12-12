@@ -16,7 +16,7 @@ class Thread extends Model
 
     protected $guarded = [];
 
-    protected $with = ['author', 'category'];
+    protected $with = ['author'];
 
     protected static function boot()
     {
@@ -50,6 +50,11 @@ class Thread extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
     }
 
     /*

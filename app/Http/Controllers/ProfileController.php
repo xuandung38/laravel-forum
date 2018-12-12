@@ -9,9 +9,13 @@ class ProfileController extends Controller
 {
     public function show(User $user)
     {
-        $activities = $user->activities()->with(['subject', 'subject.author'])->get();
-
-        // return $activities;
+        $activities = $user->activities()
+            ->latest()
+            ->with(['subject', 'subject.author', 'subject.parent'])
+            ->get()
+            ->groupBy(function ($activity) {
+                return $activity->created_at->format('Y-m-d');
+            });
 
         return view('profiles.show', [
             'profileUser' => $user,
