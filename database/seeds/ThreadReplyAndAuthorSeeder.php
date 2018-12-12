@@ -16,5 +16,11 @@ class ThreadReplyAndAuthorSeeder extends Seeder
         $threads->each(function ($thread) {
             factory('App\Reply', 10)->create(['parent_id' => $thread->id]);
         });
+
+        factory('App\User')->create([
+            'name' => 'sustained',
+            'email' => 'sustained.dissonance@gmail.com',
+            'password' => bcrypt('sustained')
+        ]);
     }
 }
