@@ -16,7 +16,7 @@ class ViewComposerServiceProvider extends ServiceProvider
     public function boot()
     {
         View::composer('*', function ($view) {
-            $categories = \Cache::rememberForever('catgories', function () {
+            $categories = \Cache::rememberForever('categories', function () {
                 return Category::all();
             });
 
