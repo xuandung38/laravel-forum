@@ -10,26 +10,15 @@
 
                 <div class="card">
                     <div class="card-header mt-2">
-                        User's Threads
+                        Activity
                     </div>
 
                     <div class="card-body">
-                        @foreach ($threads as $thread)
-                            <article>
-                                <div style="display: flex;">
-                                    <h4 style="flex: 1;"><a href="{{ $thread->path() }}">{{ $thread->title }}</a></h4>
-                                    <a href="{{ $thread->path() }}">{{ $thread->replies_count }} {{ str_plural('reply', $thread->replies_count) }}</a>
-                                </div>
-
-                                <div class="body">
-                                    {{ $thread->body }}
-                                </div>
-                            </article>
-
-                            <hr />
+                        @foreach ($activities as $activity)
+                            @include("profiles.activities.all")
                         @endforeach
 
-                        {{ $threads->links()}}
+                        {{-- {{ $threads->links()}} --}}
                     </div>
                 </div>
             </div>

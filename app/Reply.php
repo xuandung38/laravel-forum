@@ -15,10 +15,20 @@ class Reply extends Model
 
     protected $guarded = [];
 
-    protected $with = ['author', 'favourites'];
+    protected $with = ['author', 'parent', 'favourites'];
 
     public function author()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(Thread::class);
+    }
+
+    public function path()
+    {
+        return $this->parent->path() . '#reply-' . $this->id;
     }
 }
