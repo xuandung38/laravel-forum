@@ -38,7 +38,7 @@ class ActivityTest extends TestCase
                 'action' => $action,
                 'user_id' => auth()->id(),
                 'subject_id' => $model->id,
-                'subject_type' => get_class($model)
+                'subject_type' => str_singular($model->getTable())
             ])
             ->assertEquals($activity->subject->id, $model->id);
     }
